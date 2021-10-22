@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_3.StudentController">
+   <children>
+      <TextField id="nameTextField" layoutX="171.0" layoutY="68.0" prefHeight="25.0" prefWidth="222.0" />
+      <Label id="nameLabel" layoutX="84.0" layoutY="72.0" text="Label" />
+      <Label id="majorLabel" layoutX="84.0" layoutY="120.0" text="Label" />
+      <RadioButton id="CSmajorRadioButton" layoutX="171.0" layoutY="120.0" mnemonicParsing="false" text="CS">
+         <toggleGroup>
+            <ToggleGroup fx:id="majorSelectionGroup" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton id="EEmajorRadioButton" layoutX="229.0" layoutY="120.0" mnemonicParsing="false" text="EE" toggleGroup="$majorSelectionGroup" />
+      <RadioButton id="MEmajorRadioButton" layoutX="283.0" layoutY="120.0" mnemonicParsing="false" text="ME" toggleGroup="$majorSelectionGroup" />
+      <RadioButton id="ITmajorRadioButton" layoutX="341.0" layoutY="120.0" mnemonicParsing="false" text="IT" toggleGroup="$majorSelectionGroup" />
+      <RadioButton id="BAmajorRadioButton" layoutX="393.0" layoutY="120.0" mnemonicParsing="false" text="BA" toggleGroup="$majorSelectionGroup" />
+   </children>
+</AnchorPane>
