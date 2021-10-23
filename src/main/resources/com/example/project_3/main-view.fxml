@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_3.MainController">
+   <children>
+      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Student">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                 <children>
+                                    <Label text="Name" />
+                                    <TextField fx:id="nameTextField" prefHeight="25.0" prefWidth="222.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="52.0" prefWidth="384.0" spacing="20.0">
+                                 <children>
+                                    <Label text="Major">
+                                       <padding>
+                                          <Insets right="15.0" />
+                                       </padding>
+                                    </Label>
+                                    <RadioButton fx:id="CSMajorRadioButton" mnemonicParsing="false" text="CS">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="majorSelectionGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="EEMajorRadioButton" mnemonicParsing="false" text="EE" toggleGroup="$majorSelectionGroup" />
+                                    <RadioButton fx:id="MEMajorRadioButton" mnemonicParsing="false" text="ME" toggleGroup="$majorSelectionGroup" />
+                                    <RadioButton fx:id="ITMajorRadioButton" mnemonicParsing="false" text="IT" toggleGroup="$majorSelectionGroup" />
+                                    <RadioButton fx:id="BAMajorRadioButton" mnemonicParsing="false" text="BA" toggleGroup="$majorSelectionGroup" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Status" />
+                                    <VBox prefHeight="100.0" prefWidth="533.0">
+                                       <children>
+                                          <HBox prefHeight="100.0" prefWidth="143.0">
+                                             <children>
+                                                <RadioButton fx:id="residentRadioButton" mnemonicParsing="false" text="Resident">
+                                                   <toggleGroup>
+                                                      <ToggleGroup fx:id="residencyStatusSelectionGroup" />
+                                                   </toggleGroup>
+                                                </RadioButton>
+                                                <RadioButton fx:id="nonResidentRadioButton" mnemonicParsing="false" text="Non-Resident" toggleGroup="$residencyStatusSelectionGroup" />
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="143.0">
+                                             <children>
+                                                <RadioButton fx:id="tristateRadioButton1" disable="true" mnemonicParsing="false" text="Tristate">
+                                                   <toggleGroup>
+                                                      <ToggleGroup fx:id="nonResidencySelectionGroup" />
+                                                   </toggleGroup>
+                                                </RadioButton>
+                                                <RadioButton fx:id="connecticutRadioButton" disable="true" mnemonicParsing="false" text="Connecticut">
+                                                   <toggleGroup>
+                                                      <ToggleGroup fx:id="tristateSelectionGroup" />
+                                                   </toggleGroup>
+                                                </RadioButton>
+                                                <RadioButton fx:id="newYorkRadioButton11" disable="true" layoutX="70.0" layoutY="10.0" mnemonicParsing="false" text="New York" toggleGroup="$tristateSelectionGroup" />
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="143.0">
+                                             <children>
+                                                <RadioButton fx:id="internationalRadioButton" disable="true" mnemonicParsing="false" text="International" toggleGroup="$nonResidencySelectionGroup" />
+                                                <CheckBox fx:id="studyAbroadCheckbox" disable="true" mnemonicParsing="false" text="Study Abroad" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                 <children>
+                                    <Label text="Credit Hours" />
+                                    <TextField fx:id="creditHoursTextfield" prefHeight="25.0" prefWidth="222.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="addStudentButton" mnemonicParsing="false" onAction="#onAddStudentButtonClick" text="Add Student" />
+                                    <Button fx:id="removeStudentButton" mnemonicParsing="false" onAction="#onRemoveStudentButtonClick" text="Remove Student" />
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="278.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="calculateTuitionButton" mnemonicParsing="false" onAction="#onCalculateTuitionButtonClick" text="Calculate Tuition Due" />
+                                    <Label text="\$" />
+                                    <TextField fx:id="tuitionDueTextField" promptText="0.00" />
+                                 </children>
+                              </HBox>
+                              <TextArea fx:id="outputTextArea" prefHeight="200.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Untitled Tab 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
