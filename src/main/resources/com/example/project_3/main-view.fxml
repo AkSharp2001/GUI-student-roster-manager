@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_3.MainController">
+<AnchorPane prefHeight="531.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_3.MainController">
    <children>
       <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -107,23 +97,59 @@
                                     <TextField fx:id="tuitionDueTextField" promptText="0.00" />
                                  </children>
                               </HBox>
-                              <TextArea fx:id="outputTextArea" prefHeight="200.0" prefWidth="200.0" />
                            </children>
                         </VBox>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Untitled Tab 2">
+          <Tab text="Payments/Finanacial Aid">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="StudentName" layoutX="151.0" layoutY="32.0" prefHeight="25.0" prefWidth="267.0" />
+                        <Label layoutX="69.0" layoutY="36.0" text="Student Name" />
+                        <Label layoutX="108.0" layoutY="70.0" prefHeight="20.0" prefWidth="31.0" text="Major" />
+                        <HBox layoutX="151.0" layoutY="71.0" prefHeight="20.0" prefWidth="298.0">
+                           <children>
+                              <RadioButton fx:id="CSMajor" mnemonicParsing="false" text="CS">
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton fx:id="EEMajor" layoutY="10.0" mnemonicParsing="false" text="EE">
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton fx:id="MEMajor" layoutY="10.0" mnemonicParsing="false" text="ME">
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton fx:id="ITMajor" layoutY="10.0" mnemonicParsing="false" text="IT">
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton fx:id="BAMajor" layoutY="10.0" mnemonicParsing="false" text="BA">
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                              </RadioButton>
+                           </children>
+                        </HBox>
+                        <Label layoutX="45.0" layoutY="109.0" text="Payment Amount  $" />
+                        <TextField fx:id="payment" layoutX="151.0" layoutY="105.0" promptText="0.00" />
+                        <Label layoutX="25.0" layoutY="206.0" text="Financial Aid Amount  $" />
+                        <Button fx:id="pay" layoutX="313.0" layoutY="152.0" minWidth="100.0" mnemonicParsing="false" onAction="#pay" text="Pay" />
+                        <TextField fx:id="financialAid" layoutX="151.0" layoutY="202.0" promptText="0.00" />
+                        <Button fx:id="set" layoutX="313.0" layoutY="202.0" minWidth="100.0" mnemonicParsing="false" onAction="#set" text="Set" />
+                        <DatePicker fx:id="paymentDate" editable="false" layoutX="151.0" layoutY="152.0" prefHeight="25.0" prefWidth="150.0" />
+                        <Label layoutX="61.0" layoutY="156.0" text="Payment Date" />
+                     </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Untitled Tab">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
             <Tab text="Untitled Tab">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
@@ -131,5 +157,6 @@
             </Tab>
         </tabs>
       </TabPane>
+      <TextArea fx:id="outputTextArea" editable="false" layoutX="22.0" layoutY="376.0" prefHeight="141.0" prefWidth="556.0" />
    </children>
 </AnchorPane>
