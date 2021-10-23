@@ -1,4 +1,4 @@
-package tuition;
+package com.example.project_3;
 
 /**
  * A class that can add, remove, retrieve, and sort Students in a roster.

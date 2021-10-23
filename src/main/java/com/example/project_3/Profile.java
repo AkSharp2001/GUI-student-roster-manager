@@ -1,4 +1,4 @@
-package tuition;
+package com.example.project_3;
 
 /**
  * A class that defines a Profile object by a student's name and major.

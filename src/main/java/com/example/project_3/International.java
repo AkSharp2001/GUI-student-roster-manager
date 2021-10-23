@@ -1,4 +1,4 @@
-package tuition;
+package com.example.project_3;
 
 /**
  * A class that defines an International student by name, major, and credits.

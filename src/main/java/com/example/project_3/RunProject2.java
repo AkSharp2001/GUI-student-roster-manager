@@ -1,4 +1,4 @@
-package tuition;
+package com.example.project_3;
 
 /**
  * This is a driver class to run Project 2.

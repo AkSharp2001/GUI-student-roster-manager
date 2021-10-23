@@ -1,4 +1,4 @@
-package tuition;
+package com.example.project_3;
 
 /**
  * A class that defines TriState student by profile and discount information.
