@@ -14,7 +14,8 @@ public class MainController {
     private static final int MIN_CREDITS = 3;
     private static final int MAX_CREDITS = 24;
     private static final int MIN_CREDITS_INTERNATIONAL = 12;
-    private Student[] students;
+    private static final float MIN_FINANCIAL_AID = 0;
+    private static final float MAX_FINANCIAL_AID = 10000;
     private Roster roster;
 
     @FXML
@@ -48,9 +49,6 @@ public class MainController {
     private RadioButton MEMajorRadioButton;
 
     @FXML
-    private TextField StudentName;
-
-    @FXML
     private Button addStudentButton;
 
     @FXML
@@ -63,10 +61,13 @@ public class MainController {
     private TextField creditHoursTextfield;
 
     @FXML
-    private TextField financialAid;
+    private TextField financialAidAmount;
 
     @FXML
     private RadioButton internationalRadioButton;
+
+    @FXML
+    private ToggleGroup majorSelection;
 
     @FXML
     private ToggleGroup majorSelectionGroup;
@@ -90,7 +91,7 @@ public class MainController {
     private Button pay;
 
     @FXML
-    private TextField payment;
+    private TextField paymentAmount;
 
     @FXML
     private DatePicker paymentDate;
@@ -108,6 +109,9 @@ public class MainController {
     private Button set;
 
     @FXML
+    private TextField studentName;
+
+    @FXML
     private CheckBox studyAbroadCheckbox;
 
     @FXML
@@ -121,7 +125,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        this.students = new Student[4];
+        Student[] students = new Student[4];
         this.roster = new Roster(students);
     }
 
@@ -202,13 +206,107 @@ public class MainController {
     }
 
     @FXML
-    void pay(ActionEvent event) {
+    void onPayButtonClick(ActionEvent event) {
+        if (studentName.getText() == null ||
+                studentName.getText().trim().isEmpty()) {
+            return;
+
+        } else if (majorSelection.getSelectedToggle() == null) {
+            return;
+        }
+
+        String name = studentName.getText();
+        RadioButton selectedMajorRadioButton =
+                (RadioButton) majorSelection.getSelectedToggle();
+        Major major = checkMajor(selectedMajorRadioButton.getText());
+
+        float payment = 0;
+        try {
+            payment = Float.parseFloat(paymentAmount.getText());
+        } catch (NumberFormatException e) {
+//            e.printStackTrace();
+        }
+        if (payment <= 0) {
+            outputTextArea.setText("Invalid amount.");
+//            System.out.println("Invalid amount.");
+            return;
+        }
+        Student student = roster.retrieveStudent(new Student(name, major));
+        if (student == null) {
+            outputTextArea.setText("Student not in the roster.");
+//            System.out.println("Student not in the roster.");
+            return;
+        }
+        float amountDue = student.getAmountDue();
+        if (payment > amountDue) {
+            outputTextArea.setText("Amount is greater than amount due.");
+//            System.out.println("Amount is greater than amount due.");
+            return;
+        }
+        Date dateOfPayment = new Date((paymentDate.getValue()).toString());
+        if (!dateOfPayment.isValid()) {
+            outputTextArea.setText("Payment date invalid.");
+//            System.out.println("Payment date invalid.");
+            return;
+        }
+
+        outputTextArea.setText("Payment applied.");
+//        outputTextArea.setText((paymentDate.getValue()).toString());
 
     }
 
     @FXML
-    void set(ActionEvent event) {
+    void onSetButtonClick(ActionEvent event) {
+        if (studentName.getText() == null ||
+                studentName.getText().trim().isEmpty()) {
+            return;
 
+        } else if (majorSelection.getSelectedToggle() == null) {
+            return;
+        }
+
+        String name = studentName.getText();
+        RadioButton selectedMajorRadioButton =
+                (RadioButton) majorSelection.getSelectedToggle();
+        Major major = checkMajor(selectedMajorRadioButton.getText());
+
+        float aidAmount = 0;
+        try {
+            aidAmount = Float.parseFloat(financialAidAmount.getText());
+        } catch (NumberFormatException e) {
+//            e.printStackTrace();
+        }
+
+        Student student = roster.retrieveStudent(new Student(name, major));
+        if (student == null) {
+            outputTextArea.setText("Student not in the roster.");
+//            System.out.println("Student not in the roster.");
+            return;
+        } else if (student.getCredits() < 12) {
+            outputTextArea.setText("Parttime student doesn't qualify for " +
+                    "the award");
+//            System.out.println("Parttime student doesn't qualify for the " +
+//                    "award.");
+            return;
+        } else if (!(student instanceof Resident)) {
+            outputTextArea.setText("Not a resident student.");
+//            System.out.println("Not a resident student.");
+            return;
+        }
+        Resident resident = (Resident) student;
+        if (resident.getFinancialAid() != 0) {
+            outputTextArea.setText("Awarded once already.");
+//            System.out.println("Awarded once already.");
+            return;
+        }
+        if (aidAmount > MIN_FINANCIAL_AID && aidAmount < MAX_FINANCIAL_AID) {
+            resident.setFinancialAid(aidAmount);
+            outputTextArea.setText("Tuition updated.");
+//            System.out.println("Tuition updated.");
+        } else {
+            outputTextArea.setText("Invalid amount.");
+//            System.out.println("Invalid amount.");
+        }
     }
 
     /**

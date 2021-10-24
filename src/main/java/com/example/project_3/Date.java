@@ -27,10 +27,10 @@ public class Date implements Comparable<Date> {
      * @param date the String representation of the date of an album
      */
     public Date(String date) {
-        StringTokenizer st = new StringTokenizer(date, "/");
-        month = Integer.parseInt(st.nextToken());
-        day = Integer.parseInt(st.nextToken());
+        StringTokenizer st = new StringTokenizer(date, "-");
         year = Integer.parseInt(st.nextToken());
+        day = Integer.parseInt(st.nextToken());
+        month = Integer.parseInt(st.nextToken());
     } //take 'mm/dd/yyyy' and create a Date object
 
     /**
