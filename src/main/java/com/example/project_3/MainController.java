@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -25,10 +26,16 @@ public class MainController {
     private RadioButton BAMajorRadioButton;
 
     @FXML
+    private RadioButton BAMajorTuition;
+
+    @FXML
     private RadioButton CSMajor;
 
     @FXML
     private RadioButton CSMajorRadioButton;
+
+    @FXML
+    private RadioButton CSMajorTuition;
 
     @FXML
     private RadioButton EEMajor;
@@ -37,10 +44,16 @@ public class MainController {
     private RadioButton EEMajorRadioButton;
 
     @FXML
+    private RadioButton EEMajorTuition;
+
+    @FXML
     private RadioButton ITMajor;
 
     @FXML
     private RadioButton ITMajorRadioButton;
+
+    @FXML
+    private RadioButton ITMajorTuition;
 
     @FXML
     private RadioButton MEMajor;
@@ -49,7 +62,16 @@ public class MainController {
     private RadioButton MEMajorRadioButton;
 
     @FXML
+    private RadioButton MEMajorTuition;
+
+    @FXML
     private Button addStudentButton;
+
+    @FXML
+    private MenuItem byName;
+
+    @FXML
+    private MenuItem byPaymentDate;
 
     @FXML
     private Button calculateTuitionButton;
@@ -59,6 +81,12 @@ public class MainController {
 
     @FXML
     private TextField creditHoursTextfield;
+
+    @FXML
+    private MenuItem currentOrder;
+
+    @FXML
+    private MenuItem entireRoster;
 
     @FXML
     private TextField financialAidAmount;
@@ -71,6 +99,9 @@ public class MainController {
 
     @FXML
     private ToggleGroup majorSelectionGroup;
+
+    @FXML
+    private ToggleGroup majorSelectionTuition;
 
     @FXML
     private TextField nameTextField;
@@ -109,7 +140,13 @@ public class MainController {
     private Button set;
 
     @FXML
+    private MenuItem singleStudent;
+
+    @FXML
     private TextField studentName;
+
+    @FXML
+    private TextField studentNameTuition;
 
     @FXML
     private CheckBox studyAbroadCheckbox;
@@ -227,31 +264,30 @@ public class MainController {
 //            e.printStackTrace();
         }
         if (payment <= 0) {
-            outputTextArea.setText("Invalid amount.");
+            outputTextArea.appendText("Invalid amount.\n");
 //            System.out.println("Invalid amount.");
             return;
         }
         Student student = roster.retrieveStudent(new Student(name, major));
         if (student == null) {
-            outputTextArea.setText("Student not in the roster.");
+            outputTextArea.appendText("Student not in the roster.\n");
 //            System.out.println("Student not in the roster.");
             return;
         }
         float amountDue = student.getAmountDue();
         if (payment > amountDue) {
-            outputTextArea.setText("Amount is greater than amount due.");
+            outputTextArea.appendText("Amount is greater than amount due.\n");
 //            System.out.println("Amount is greater than amount due.");
             return;
         }
         Date dateOfPayment = new Date((paymentDate.getValue()).toString());
         if (!dateOfPayment.isValid()) {
-            outputTextArea.setText("Payment date invalid.");
+            outputTextArea.appendText("Payment date invalid.\n");
 //            System.out.println("Payment date invalid.");
             return;
         }
 
-        outputTextArea.setText("Payment applied.");
-//        outputTextArea.setText((paymentDate.getValue()).toString());
+        outputTextArea.appendText("Payment applied.\n");
 
     }
 
@@ -279,34 +315,71 @@ public class MainController {
 
         Student student = roster.retrieveStudent(new Student(name, major));
         if (student == null) {
-            outputTextArea.setText("Student not in the roster.");
+            outputTextArea.appendText("Student not in the roster.\n");
 //            System.out.println("Student not in the roster.");
             return;
         } else if (student.getCredits() < 12) {
-            outputTextArea.setText("Parttime student doesn't qualify for " +
-                    "the award");
+            outputTextArea.appendText("Parttime student doesn't qualify for " +
+                    "the award\n");
 //            System.out.println("Parttime student doesn't qualify for the " +
 //                    "award.");
             return;
         } else if (!(student instanceof Resident)) {
-            outputTextArea.setText("Not a resident student.");
+            outputTextArea.appendText("Not a resident student.\n");
 //            System.out.println("Not a resident student.");
             return;
         }
         Resident resident = (Resident) student;
         if (resident.getFinancialAid() != 0) {
-            outputTextArea.setText("Awarded once already.");
+            outputTextArea.appendText("Awarded once already.\n");
 //            System.out.println("Awarded once already.");
             return;
         }
         if (aidAmount > MIN_FINANCIAL_AID && aidAmount < MAX_FINANCIAL_AID) {
             resident.setFinancialAid(aidAmount);
-            outputTextArea.setText("Tuition updated.");
+            outputTextArea.appendText("Tuition updated.\n");
 //            System.out.println("Tuition updated.");
         } else {
-            outputTextArea.setText("Invalid amount.");
+            outputTextArea.appendText("Invalid amount.\n");
 //            System.out.println("Invalid amount.");
         }
+    }
+
+    @FXML
+    void onEntireRosterButtonClick(ActionEvent event) {
+        roster.calculateAllTuition();
+        outputTextArea.appendText("Calculation completed.\n");
+    }
+
+    @FXML
+    void onSingleStudentButtonClick(ActionEvent event) {
+        try {
+            String name = studentNameTuition.getText();
+            RadioButton selectedMajorRadioButton =
+                    (RadioButton) majorSelectionTuition.getSelectedToggle();
+            Major major = checkMajor(selectedMajorRadioButton.getText());
+            Student student = roster.retrieveStudent(new Student(name, major));
+            student.tuitionDue();
+            outputTextArea.appendText("Calculation completed.\n");
+        } catch (NullPointerException e) {
+//            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void onCurrentOrderButtonClick(ActionEvent event) {
+        outputTextArea.appendText(roster.toString() + "\n");
+    }
+
+    @FXML
+    void onByNameButtonClick(ActionEvent event) {
+        outputTextArea.appendText(roster.toStringByName() + "\n");
+
+    }
+
+    @FXML
+    void onByPaymentDateButtonClick(ActionEvent event) {
+        outputTextArea.appendText(roster.toStringByPayment() + "\n");
     }
 
     /**

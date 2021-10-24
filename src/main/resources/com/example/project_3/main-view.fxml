@@ -6,6 +6,9 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -216,9 +219,87 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Untitled Tab">
+            <Tab text="Process Tuition">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <MenuBar layoutX="31.0" layoutY="24.0" prefWidth="155.0">
+                          <menus>
+                            <Menu mnemonicParsing="false" text="Tuition">
+                              <items>
+                                <MenuItem fx:id="entireRoster" mnemonicParsing="false" onAction="#onEntireRosterButtonClick" text="Entire Roster" />
+                                    <MenuItem fx:id="singleStudent" mnemonicParsing="false" onAction="#onSingleStudentButtonClick" text="Single Student" />
+                              </items>
+                            </Menu>
+                            <Menu mnemonicParsing="false" text="Print">
+                              <items>
+                                <MenuItem fx:id="currentOrder" mnemonicParsing="false" onAction="#onCurrentOrderButtonClick" text="Current Order" />
+                                    <MenuItem fx:id="byName" mnemonicParsing="false" onAction="#onByNameButtonClick" text="By Name" />
+                                    <MenuItem fx:id="byPaymentDate" mnemonicParsing="false" onAction="#onByPaymentDateButtonClick" text="By Payment Date" />
+                              </items>
+                            </Menu>
+                            <Menu mnemonicParsing="false" text="Help">
+                              <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                              </items>
+                            </Menu>
+                          </menus>
+                        </MenuBar>
+                        <HBox layoutX="31.0" layoutY="117.0" prefHeight="30.0" prefWidth="363.0">
+                           <children>
+                              <Label prefHeight="24.0" prefWidth="77.0" text="Student Name">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="studentNameTuition" prefHeight="0.0" prefWidth="250.0">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="76.0" layoutY="155.0" prefHeight="20.0" prefWidth="312.0">
+                           <children>
+                              <Label alignment="TOP_CENTER" prefHeight="20.0" prefWidth="31.0" text="Major">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                                 <rotationAxis>
+                                    <Point3D />
+                                 </rotationAxis>
+                              </Label>
+                              <RadioButton fx:id="CSMajorTuition" mnemonicParsing="false" text="CS">
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="majorSelectionTuition" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="EEMajorTuition" layoutY="10.0" mnemonicParsing="false" text="EE" toggleGroup="$majorSelectionTuition">
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton fx:id="MEMajorTuition" layoutY="10.0" mnemonicParsing="false" text="ME" toggleGroup="$majorSelectionTuition">
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton fx:id="ITMajorTuition" layoutY="10.0" mnemonicParsing="false" text="IT" toggleGroup="$majorSelectionTuition">
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton fx:id="BAMajorTuition" layoutY="10.0" mnemonicParsing="false" text="BA" toggleGroup="$majorSelectionTuition">
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                              </RadioButton>
+                           </children>
+                        </HBox>
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>
