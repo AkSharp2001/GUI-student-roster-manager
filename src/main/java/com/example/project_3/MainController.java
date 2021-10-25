@@ -169,19 +169,41 @@ public class MainController {
     @FXML
     void onAddStudentButtonClick(ActionEvent event) {
         if (nameTextField.getText() == null ||
-                nameTextField.getText().trim().isEmpty()) {
-
-        } else if (
-                majorSelectionGroup.getSelectedToggle() == null) {
+                nameTextField.getText().trim().isEmpty() ||
+                majorSelectionGroup.getSelectedToggle() == null ||
+                creditHoursTextfield.getText() == null ||
+                residencyStatusSelectionGroup.getSelectedToggle() == null) {
+            return;
         }
-
         String name = nameTextField.getText();
         RadioButton selectedMajorRadioButton =
                 (RadioButton) majorSelectionGroup.getSelectedToggle();
         Major major = checkMajor(selectedMajorRadioButton.getText());
-        int credits = Integer.parseInt(creditHoursTextfield.getText());
-        String studentResidencyStatus = getStudentResidencyStatus();
+        if (creditHoursTextfield.getText().isEmpty()) {
+            outputTextArea.appendText("Credit hours missing.\n");
+            return;
+        }
+        int credits = 0;
+        try {
+            credits = Integer.parseInt(creditHoursTextfield.getText());
+        } catch (NumberFormatException e) {
+            outputTextArea.appendText("Invalid credit hours.\n");
+            return;
+//            e.printStackTrace();
+        }
+        if (credits < 0) {
+            outputTextArea.appendText("Credit hours cannot be negative.\n");
+            return;
+        } else if (credits < MIN_CREDITS) {
+            outputTextArea.appendText("Minimum credit hours is 3.\n");
+            return;
+        } else if (credits > MAX_CREDITS) {
+            outputTextArea.appendText("Credit hours exceed the maximum 24" +
+                    ".\n");
+            return;
+        }
 
+        String studentResidencyStatus = getStudentResidencyStatus();
 
         boolean isAdded = false;
         switch (studentResidencyStatus) {
@@ -217,8 +239,8 @@ public class MainController {
             case "AI" -> {
                 boolean isStudyAbroad = studyAbroadCheckbox.isSelected();
                 if (credits < MIN_CREDITS_INTERNATIONAL) {
-                    System.out.println("International students must enroll" +
-                            " at least 12 credits.");
+                    outputTextArea.appendText("International students must enroll" +
+                            " at least 12 credits.\n");
                     return;
                 }
                 International international = new International(name, major,
@@ -227,31 +249,56 @@ public class MainController {
             }
         }
         if (isAdded) {
-            System.out.println("Student added.");
+            outputTextArea.appendText("Student added.\n");
         }
-    }
-
-
-    @FXML
-    void onCalculateTuitionButtonClick(ActionEvent event) {
-
+        else {
+            outputTextArea.appendText("Student is already in the roster.\n");
+        }
     }
 
     @FXML
     void onRemoveStudentButtonClick(ActionEvent event) {
+        if (nameTextField.getText() == null ||
+                nameTextField.getText().trim().isEmpty() ||
+                majorSelectionGroup.getSelectedToggle() == null) {
+            return;
+        }
+        String name = nameTextField.getText();
+        RadioButton selectedMajorRadioButton =
+                (RadioButton) majorSelectionGroup.getSelectedToggle();
+        Major major = checkMajor(selectedMajorRadioButton.getText());
+        Student student = new Student(name, major);
+        boolean isStudentRemoved = roster.remove(student);
+        if (!isStudentRemoved) {
+            outputTextArea.appendText("Student is not in the roster.\n");
+        } else {
+            outputTextArea.appendText("Student removed from the roster.\n");
+        }
+    }
 
+    @FXML
+    void onCalculateTuitionButtonClick(ActionEvent event) {
+        try {
+            String name = nameTextField.getText();
+            RadioButton selectedMajorRadioButton =
+                    (RadioButton) majorSelectionGroup.getSelectedToggle();
+            Major major = checkMajor(selectedMajorRadioButton.getText());
+            Student student = roster.retrieveStudent(new Student(name, major));
+            student.tuitionDue();
+            tuitionDueTextField.setText(String.valueOf(student.getAmountDue()));
+            outputTextArea.appendText("Calculation completed.\n");
+        } catch (NullPointerException e) {
+//            e.printStackTrace();
+        }
     }
 
     @FXML
     void onPayButtonClick(ActionEvent event) {
         if (studentName.getText() == null ||
-                studentName.getText().trim().isEmpty()) {
-            return;
-
-        } else if (majorSelection.getSelectedToggle() == null) {
+                studentName.getText().trim().isEmpty() ||
+                majorSelection.getSelectedToggle() == null) {
             return;
         }
-
         String name = studentName.getText();
         RadioButton selectedMajorRadioButton =
                 (RadioButton) majorSelection.getSelectedToggle();

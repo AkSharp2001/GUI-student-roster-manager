@@ -109,7 +109,7 @@
                                  <children>
                                     <Button fx:id="calculateTuitionButton" mnemonicParsing="false" onAction="#onCalculateTuitionButtonClick" text="Calculate Tuition Due" />
                                     <Label text="\$" />
-                                    <TextField fx:id="tuitionDueTextField" promptText="0.00" />
+                                    <TextField fx:id="tuitionDueTextField" editable="false" promptText="0.00" />
                                  </children>
                               </HBox>
                            </children>
