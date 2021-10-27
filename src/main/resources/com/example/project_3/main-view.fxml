@@ -16,8 +16,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane prefHeight="531.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project_3.MainController">
    <children>
@@ -27,21 +29,28 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                        <GridPane layoutX="37.0" layoutY="14.0" prefHeight="309.0" prefWidth="456.0">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" maxWidth="223.0" minWidth="10.0" prefWidth="82.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="374.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
                            <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                              <Label prefHeight="25.0" prefWidth="34.0" text="Name" />
+                              <TextField fx:id="nameTextField" prefHeight="25.0" prefWidth="222.0" GridPane.columnIndex="1" />
+                              <Label text="Status" GridPane.rowIndex="2" />
+                              <Label text="Credit Hours" GridPane.rowIndex="5" />
+                              <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="46.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <Label text="Name" />
-                                    <TextField fx:id="nameTextField" prefHeight="25.0" prefWidth="222.0" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="52.0" prefWidth="384.0" spacing="20.0">
-                                 <children>
-                                    <Label text="Major">
-                                       <padding>
-                                          <Insets right="15.0" />
-                                       </padding>
-                                    </Label>
                                     <RadioButton fx:id="CSMajorRadioButton" mnemonicParsing="false" text="CS">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="majorSelectionGroup" />
@@ -53,67 +62,84 @@
                                     <RadioButton fx:id="BAMajorRadioButton" mnemonicParsing="false" text="BA" toggleGroup="$majorSelectionGroup" />
                                  </children>
                               </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="143.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
-                                    <Label text="Status" />
-                                    <VBox prefHeight="100.0" prefWidth="533.0">
-                                       <children>
-                                          <HBox prefHeight="100.0" prefWidth="143.0">
-                                             <children>
-                                                <RadioButton fx:id="residentRadioButton" mnemonicParsing="false" text="Resident">
-                                                   <toggleGroup>
-                                                      <ToggleGroup fx:id="residencyStatusSelectionGroup" />
-                                                   </toggleGroup>
-                                                </RadioButton>
-                                                <RadioButton fx:id="nonResidentRadioButton" mnemonicParsing="false" text="Non-Resident" toggleGroup="$residencyStatusSelectionGroup" />
-                                             </children>
-                                          </HBox>
-                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="143.0">
-                                             <children>
-                                                <RadioButton fx:id="tristateRadioButton1" disable="true" mnemonicParsing="false" text="Tristate">
-                                                   <toggleGroup>
-                                                      <ToggleGroup fx:id="nonResidencySelectionGroup" />
-                                                   </toggleGroup>
-                                                </RadioButton>
-                                                <RadioButton fx:id="connecticutRadioButton" disable="true" mnemonicParsing="false" text="Connecticut">
-                                                   <toggleGroup>
-                                                      <ToggleGroup fx:id="tristateSelectionGroup" />
-                                                   </toggleGroup>
-                                                </RadioButton>
-                                                <RadioButton fx:id="newYorkRadioButton11" disable="true" layoutX="70.0" layoutY="10.0" mnemonicParsing="false" text="New York" toggleGroup="$tristateSelectionGroup" />
-                                             </children>
-                                          </HBox>
-                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="143.0">
-                                             <children>
-                                                <RadioButton fx:id="internationalRadioButton" disable="true" mnemonicParsing="false" text="International" toggleGroup="$nonResidencySelectionGroup" />
-                                                <CheckBox fx:id="studyAbroadCheckbox" disable="true" mnemonicParsing="false" text="Study Abroad" />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
+                                    <RadioButton fx:id="residentRadioButton" mnemonicParsing="false" text="Resident">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="residencyStatusSelectionGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="nonResidentRadioButton" mnemonicParsing="false" text="Non-Resident" toggleGroup="$residencyStatusSelectionGroup">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </RadioButton>
                                  </children>
                               </HBox>
-                              <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="143.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
-                                    <Label text="Credit Hours" />
-                                    <TextField fx:id="creditHoursTextfield" prefHeight="25.0" prefWidth="222.0" />
+                                    <RadioButton fx:id="tristateRadioButton1" disable="true" mnemonicParsing="false" text="Tristate">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="nonResidencySelectionGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="connecticutRadioButton" disable="true" mnemonicParsing="false" text="Connecticut">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tristateSelectionGroup" />
+                                       </toggleGroup>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </RadioButton>
+                                    <RadioButton fx:id="newYorkRadioButton11" disable="true" layoutX="70.0" layoutY="10.0" mnemonicParsing="false" text="New York" toggleGroup="$tristateSelectionGroup">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </RadioButton>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="143.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <children>
+                                    <RadioButton fx:id="internationalRadioButton" disable="true" mnemonicParsing="false" text="International" toggleGroup="$nonResidencySelectionGroup" />
+                                    <CheckBox fx:id="studyAbroadCheckbox" disable="true" mnemonicParsing="false" text="Study Abroad">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </CheckBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                  <children>
                                     <Button fx:id="addStudentButton" mnemonicParsing="false" onAction="#onAddStudentButtonClick" text="Add Student" />
-                                    <Button fx:id="removeStudentButton" mnemonicParsing="false" onAction="#onRemoveStudentButtonClick" text="Remove Student" />
+                                    <Button fx:id="removeStudentButton" mnemonicParsing="false" onAction="#onRemoveStudentButtonClick" text="Remove Student">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Button>
                                  </children>
                               </HBox>
-                              <HBox layoutX="10.0" layoutY="278.0" prefHeight="100.0" prefWidth="200.0">
+                              <TextField fx:id="creditHoursTextfield" prefHeight="25.0" prefWidth="222.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="304.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                  <children>
                                     <Button fx:id="calculateTuitionButton" mnemonicParsing="false" onAction="#onCalculateTuitionButtonClick" text="Calculate Tuition Due" />
-                                    <Label text="\$" />
-                                    <TextField fx:id="tuitionDueTextField" editable="false" promptText="0.00" />
+                                    <Label text="\$">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="tuitionDueTextField" editable="false" promptText="0.00">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </TextField>
                                  </children>
                               </HBox>
+                              <Label prefHeight="25.0" prefWidth="34.0" text="Major" GridPane.rowIndex="1" />
                            </children>
-                        </VBox>
+                        </GridPane>
                      </children>
                   </AnchorPane>
             </content>
