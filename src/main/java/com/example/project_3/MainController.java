@@ -107,7 +107,7 @@ public class MainController {
     private TextField nameTextField;
 
     @FXML
-    private RadioButton newYorkRadioButton11;
+    private RadioButton newYorkRadioButton;
 
     @FXML
     private ToggleGroup nonResidencySelectionGroup;
@@ -152,7 +152,7 @@ public class MainController {
     private CheckBox studyAbroadCheckbox;
 
     @FXML
-    private RadioButton tristateRadioButton1;
+    private RadioButton tristateRadioButton;
 
     @FXML
     private ToggleGroup tristateSelectionGroup;
@@ -164,6 +164,43 @@ public class MainController {
     public void initialize() {
         Student[] students = new Student[4];
         this.roster = new Roster(students);
+    }
+
+    @FXML
+    void onResidentButtonClick(ActionEvent event) {
+        tristateRadioButton.setDisable(true);
+        connecticutRadioButton.setDisable(true);
+        newYorkRadioButton.setDisable(true);
+        internationalRadioButton.setDisable(true);
+        studyAbroadCheckbox.setDisable(true);
+        tristateRadioButton.setSelected(false);
+        connecticutRadioButton.setSelected(false);
+        newYorkRadioButton.setSelected(false);
+        internationalRadioButton.setSelected(false);
+        studyAbroadCheckbox.setSelected(false);
+    }
+
+    @FXML
+    void onNonResidentButtonClick(ActionEvent event) {
+        tristateRadioButton.setDisable(false);
+        internationalRadioButton.setDisable(false);
+    }
+
+    @FXML
+    void onTristateButtonClick(ActionEvent event) {
+        connecticutRadioButton.setDisable(false);
+        newYorkRadioButton.setDisable(false);
+        studyAbroadCheckbox.setDisable(true);
+        studyAbroadCheckbox.setSelected(false);
+    }
+
+    @FXML
+    void onInternationalButtonClick(ActionEvent event) {
+        connecticutRadioButton.setDisable(true);
+        newYorkRadioButton.setDisable(true);
+        connecticutRadioButton.setSelected(false);
+        newYorkRadioButton.setSelected(false);
+        studyAbroadCheckbox.setDisable(false);
     }
 
     @FXML
@@ -206,6 +243,7 @@ public class MainController {
         String studentResidencyStatus = getStudentResidencyStatus();
 
         boolean isAdded = false;
+        boolean inputError = false;
         switch (studentResidencyStatus) {
             case "AR" -> {
                 Resident resident = new Resident(name, major, credits);
@@ -217,30 +255,31 @@ public class MainController {
                 isAdded = roster.add(nonResident);
             }
             case "AT" -> {
-//                State state = checkState(splitInput[4]);
                 RadioButton selectedTristateRadioButton =
                         (RadioButton) tristateSelectionGroup.getSelectedToggle();
-                State state =
-                        checkState(selectedTristateRadioButton.getText());
-//                if (state == null) {
-//                    System.out.println("Not part of the tri-state area.");
-//                    return;
-//                }
-                float discount = 0;
-                if (state == State.NY) {
-                    discount = 4000;
-                } else if (state == State.CT) {
-                    discount = 5000;
+                try {
+                    State state =
+                            checkState(selectedTristateRadioButton.getText());
+                    float discount = 0;
+                    if (state == State.NY) {
+                        discount = 4000;
+                    } else if (state == State.CT) {
+                        discount = 5000;
+                    }
+                    TriState triState = new TriState(name, major, credits,
+                            discount, state);
+                    isAdded = roster.add(triState);
+                } catch (NullPointerException e) {
+                    inputError = true;
+                    outputTextArea.appendText("Not part of the tri-state " +
+                            "area.\n");
                 }
-                TriState triState = new TriState(name, major, credits,
-                        discount, state);
-                isAdded = roster.add(triState);
             }
             case "AI" -> {
                 boolean isStudyAbroad = studyAbroadCheckbox.isSelected();
                 if (credits < MIN_CREDITS_INTERNATIONAL) {
-                    outputTextArea.appendText("International students must enroll" +
-                            " at least 12 credits.\n");
+                    outputTextArea.appendText("International students must"
+                            + " enroll" + " at least 12 credits.\n");
                     return;
                 }
                 International international = new International(name, major,
@@ -251,7 +290,7 @@ public class MainController {
         if (isAdded) {
             outputTextArea.appendText("Student added.\n");
         }
-        else {
+        else if (!inputError){
             outputTextArea.appendText("Student is already in the roster.\n");
         }
     }
@@ -328,6 +367,7 @@ public class MainController {
             return;
         }
         Date dateOfPayment = new Date((paymentDate.getValue()).toString());
+        System.out.println(paymentDate.getValue().toString());
         if (!dateOfPayment.isValid()) {
             outputTextArea.appendText("Payment date invalid.\n");
 //            System.out.println("Payment date invalid.");

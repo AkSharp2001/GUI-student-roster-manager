@@ -31,7 +31,7 @@ public class Date implements Comparable<Date> {
         year = Integer.parseInt(st.nextToken());
         day = Integer.parseInt(st.nextToken());
         month = Integer.parseInt(st.nextToken());
-    } //take 'mm/dd/yyyy' and create a Date object
+    }
 
     /**
      * Default constructor for the Date class, which represents today's date.
@@ -48,8 +48,7 @@ public class Date implements Comparable<Date> {
     /**
      * Determines if this Date object has valid attributes.
      *
-     * @return true if this Date object has a valid date between 1980 and the
-     * present, false otherwise.
+     * @return true if this Date object has a valid date in the current year
      */
     public boolean isValid() {
         if (this.year != CURRENT_YEAR) {

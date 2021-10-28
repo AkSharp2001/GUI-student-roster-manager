@@ -64,12 +64,12 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="143.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
-                                    <RadioButton fx:id="residentRadioButton" mnemonicParsing="false" text="Resident">
+                                    <RadioButton fx:id="residentRadioButton" mnemonicParsing="false" onAction="#onResidentButtonClick" text="Resident">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="residencyStatusSelectionGroup" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton fx:id="nonResidentRadioButton" mnemonicParsing="false" text="Non-Resident" toggleGroup="$residencyStatusSelectionGroup">
+                                    <RadioButton fx:id="nonResidentRadioButton" mnemonicParsing="false" onAction="#onNonResidentButtonClick" text="Non-Resident" toggleGroup="$residencyStatusSelectionGroup">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -81,7 +81,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="143.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
-                                    <RadioButton fx:id="tristateRadioButton1" disable="true" mnemonicParsing="false" text="Tristate">
+                                    <RadioButton fx:id="tristateRadioButton" disable="true" mnemonicParsing="false" onAction="#onTristateButtonClick" text="Tristate">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="nonResidencySelectionGroup" />
                                        </toggleGroup>
@@ -94,7 +94,7 @@
                                           <Insets left="20.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <RadioButton fx:id="newYorkRadioButton11" disable="true" layoutX="70.0" layoutY="10.0" mnemonicParsing="false" text="New York" toggleGroup="$tristateSelectionGroup">
+                                    <RadioButton fx:id="newYorkRadioButton" disable="true" layoutX="70.0" layoutY="10.0" mnemonicParsing="false" text="New York" toggleGroup="$tristateSelectionGroup">
                                        <HBox.margin>
                                           <Insets left="20.0" />
                                        </HBox.margin>
@@ -103,7 +103,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="143.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <children>
-                                    <RadioButton fx:id="internationalRadioButton" disable="true" mnemonicParsing="false" text="International" toggleGroup="$nonResidencySelectionGroup" />
+                                    <RadioButton fx:id="internationalRadioButton" disable="true" mnemonicParsing="false" onAction="#onInternationalButtonClick" text="International" toggleGroup="$nonResidencySelectionGroup" />
                                     <CheckBox fx:id="studyAbroadCheckbox" disable="true" mnemonicParsing="false" text="Study Abroad">
                                        <HBox.margin>
                                           <Insets left="20.0" />
