@@ -29,8 +29,8 @@ public class Date implements Comparable<Date> {
     public Date(String date) {
         StringTokenizer st = new StringTokenizer(date, "-");
         year = Integer.parseInt(st.nextToken());
-        day = Integer.parseInt(st.nextToken());
         month = Integer.parseInt(st.nextToken());
+        day = Integer.parseInt(st.nextToken());
     }
 
     /**
@@ -57,7 +57,7 @@ public class Date implements Comparable<Date> {
         if (this.compareTo(new Date()) >= 0) {
             return false;
         }
-        if (this.month < 1 || this.day < 1 || this.year < 1) {
+        if (this.month < 1 || this.day < 1) {
             return false;
         }
         if (this.month == 1 || this.month == 3 || this.month == 5 ||

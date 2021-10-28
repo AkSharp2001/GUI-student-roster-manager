@@ -366,16 +366,17 @@ public class MainController {
 //            System.out.println("Amount is greater than amount due.");
             return;
         }
-        Date dateOfPayment = new Date((paymentDate.getValue()).toString());
-        System.out.println(paymentDate.getValue().toString());
-        if (!dateOfPayment.isValid()) {
+        try {
+            Date dateOfPayment = new Date((paymentDate.getValue()).toString());
+            if (!dateOfPayment.isValid()) {
+                outputTextArea.appendText("Payment date invalid.\n");
+                return;
+            }
+            student.payTuition(payment, dateOfPayment);
+            outputTextArea.appendText("Payment applied.\n");
+        } catch (NullPointerException e) {
             outputTextArea.appendText("Payment date invalid.\n");
-//            System.out.println("Payment date invalid.");
-            return;
         }
-
-        outputTextArea.appendText("Payment applied.\n");
-
     }
 
     @FXML
