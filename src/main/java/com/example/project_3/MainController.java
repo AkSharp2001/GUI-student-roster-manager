@@ -177,7 +177,7 @@ public class MainController {
     /**
      * Disables NonResident attributes when Resident button is clicked.
      *
-     * @param event an event that occurs when a button is clicked
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onResidentButtonClick(ActionEvent event) {
@@ -196,7 +196,7 @@ public class MainController {
     /**
      * Enables NonResident attributes when NonResident button is clicked.
      *
-     * @param event
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onNonResidentButtonClick(ActionEvent event) {
@@ -208,7 +208,7 @@ public class MainController {
      * Enables state buttons and disables study abroad checkbox when
      * TriState button is clicked.
      *
-     * @param event
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onTristateButtonClick(ActionEvent event) {
@@ -222,7 +222,7 @@ public class MainController {
      * Disables state buttons and enables study abroad checkbox when
      * International button is clicked.
      *
-     * @param event
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onInternationalButtonClick(ActionEvent event) {
@@ -238,7 +238,7 @@ public class MainController {
      * This method validates the user's input and creates a new Student.
      * This method then prints whether the user input is valid.
      *
-     * @param event
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onAddStudentButtonClick(ActionEvent event) {
@@ -334,7 +334,7 @@ public class MainController {
     /**
      * Removes student from roster based on given name and major.
      *
-     * @param event
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onRemoveStudentButtonClick(ActionEvent event) {
@@ -368,7 +368,7 @@ public class MainController {
      * Calculates the tuition for an individual student based on the
      * given name and major.
      *
-     * @param event
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onCalculateTuitionButtonClick(ActionEvent event) {
@@ -381,7 +381,7 @@ public class MainController {
             student.tuitionDue();
             tuitionDueTextField.setText(String.valueOf(student.getAmountDue()));
             outputTextArea.appendText("Calculation completed.\n");
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
         }
     }
 
@@ -389,7 +389,7 @@ public class MainController {
      * Updates a student's tuition based on a given payment amount and
      * payment date.
      *
-     * @param event
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onPayButtonClick(ActionEvent event) {
@@ -406,7 +406,7 @@ public class MainController {
         float payment = 0;
         try {
             payment = Float.parseFloat(paymentAmount.getText());
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException ignored) {
         }
         if (payment <= 0) {
             outputTextArea.appendText("Invalid amount.\n");
@@ -439,7 +439,7 @@ public class MainController {
      * Sets the financial aid for a Resident student given a financial aid
      * amount.
      *
-     * @param event
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onSetButtonClick(ActionEvent event) {
@@ -459,7 +459,7 @@ public class MainController {
         float aidAmount = 0;
         try {
             aidAmount = Float.parseFloat(financialAidAmount.getText());
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException ignored) {
         }
 
         Student student = roster.retrieveStudent(new Student(name, major));
@@ -490,7 +490,7 @@ public class MainController {
     /**
      * Calculates the tuition for every student in the roster.
      *
-     * @param event
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onEntireRosterButtonClick(ActionEvent event) {
@@ -501,7 +501,7 @@ public class MainController {
     /**
      * Calculates the tuition for a single student given the name and major.
      *
-     * @param event
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onSingleStudentButtonClick(ActionEvent event) {
@@ -513,14 +513,14 @@ public class MainController {
             Student student = roster.retrieveStudent(new Student(name, major));
             student.tuitionDue();
             outputTextArea.appendText("Calculation completed.\n");
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
         }
     }
 
     /**
      * Prints all the students in the roster in the current order.
      *
-     * @param event
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onCurrentOrderButtonClick(ActionEvent event) {
@@ -531,7 +531,7 @@ public class MainController {
      * Prints all the students in the roster sorted in alphabetical order
      * by name.
      *
-     * @param event
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onByNameButtonClick(ActionEvent event) {
@@ -542,7 +542,7 @@ public class MainController {
     /**
      * Prints the students who have made a payment by ascending payment date.
      *
-     * @param event
+     * @param event an event that occurs when a button is clicked.
      */
     @FXML
     void onByPaymentDateButtonClick(ActionEvent event) {
