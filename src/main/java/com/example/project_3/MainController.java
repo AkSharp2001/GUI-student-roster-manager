@@ -338,6 +338,14 @@ public class MainController {
      */
     @FXML
     void onRemoveStudentButtonClick(ActionEvent event) {
+        residentRadioButton.setSelected(false);
+        nonResidentRadioButton.setSelected(false);
+        tristateRadioButton.setSelected(false);
+        connecticutRadioButton.setSelected(false);
+        newYorkRadioButton.setSelected(false);
+        internationalRadioButton.setSelected(false);
+        studyAbroadCheckbox.setSelected(false);
+        creditHoursTextfield.setText(null);
         if (nameTextField.getText() == null ||
                 nameTextField.getText().trim().isEmpty() ||
                 majorSelectionGroup.getSelectedToggle() == null) {
