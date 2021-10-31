@@ -11,6 +11,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
+/**
+ * Controller class that specifies the attributes and actions for the GUI
+ *
+ * @author Mervin James, Akshar Patel
+ */
 public class MainController {
     private static final int MIN_CREDITS = 3;
     private static final int MAX_CREDITS = 24;
@@ -160,12 +165,20 @@ public class MainController {
     @FXML
     private TextField tuitionDueTextField;
 
+    /**
+     * Initializes the roster to size 4.
+     */
     @FXML
     public void initialize() {
         Student[] students = new Student[4];
         this.roster = new Roster(students);
     }
 
+    /**
+     * Disables NonResident attributes when Resident button is clicked.
+     *
+     * @param event an event that occurs when a button is clicked
+     */
     @FXML
     void onResidentButtonClick(ActionEvent event) {
         tristateRadioButton.setDisable(true);
@@ -180,12 +193,23 @@ public class MainController {
         studyAbroadCheckbox.setSelected(false);
     }
 
+    /**
+     * Enables NonResident attributes when NonResident button is clicked.
+     *
+     * @param event
+     */
     @FXML
     void onNonResidentButtonClick(ActionEvent event) {
         tristateRadioButton.setDisable(false);
         internationalRadioButton.setDisable(false);
     }
 
+    /**
+     * Enables state buttons and disables study abroad checkbox when
+     * TriState button is clicked.
+     *
+     * @param event
+     */
     @FXML
     void onTristateButtonClick(ActionEvent event) {
         connecticutRadioButton.setDisable(false);
@@ -194,6 +218,12 @@ public class MainController {
         studyAbroadCheckbox.setSelected(false);
     }
 
+    /**
+     * Disables state buttons and enables study abroad checkbox when
+     * International button is clicked.
+     *
+     * @param event
+     */
     @FXML
     void onInternationalButtonClick(ActionEvent event) {
         connecticutRadioButton.setDisable(true);
@@ -203,6 +233,13 @@ public class MainController {
         studyAbroadCheckbox.setDisable(false);
     }
 
+    /**
+     * Adds a student to the roster based on the user's input.
+     * This method validates the user's input and creates a new Student.
+     * This method then prints whether the user input is valid.
+     *
+     * @param event
+     */
     @FXML
     void onAddStudentButtonClick(ActionEvent event) {
         if (nameTextField.getText() == null ||
@@ -220,13 +257,12 @@ public class MainController {
             outputTextArea.appendText("Credit hours missing.\n");
             return;
         }
-        int credits = 0;
+        int credits;
         try {
             credits = Integer.parseInt(creditHoursTextfield.getText());
         } catch (NumberFormatException e) {
             outputTextArea.appendText("Invalid credit hours.\n");
             return;
-//            e.printStackTrace();
         }
         if (credits < 0) {
             outputTextArea.appendText("Credit hours cannot be negative.\n");
@@ -295,6 +331,11 @@ public class MainController {
         }
     }
 
+    /**
+     * Removes student from roster based on given name and major.
+     *
+     * @param event
+     */
     @FXML
     void onRemoveStudentButtonClick(ActionEvent event) {
         if (nameTextField.getText() == null ||
@@ -315,6 +356,12 @@ public class MainController {
         }
     }
 
+    /**
+     * Calculates the tuition for an individual student based on the
+     * given name and major.
+     *
+     * @param event
+     */
     @FXML
     void onCalculateTuitionButtonClick(ActionEvent event) {
         try {
@@ -327,10 +374,15 @@ public class MainController {
             tuitionDueTextField.setText(String.valueOf(student.getAmountDue()));
             outputTextArea.appendText("Calculation completed.\n");
         } catch (NullPointerException e) {
-//            e.printStackTrace();
         }
     }
 
+    /**
+     * Updates a student's tuition based on a given payment amount and
+     * payment date.
+     *
+     * @param event
+     */
     @FXML
     void onPayButtonClick(ActionEvent event) {
         if (studentName.getText() == null ||
@@ -347,23 +399,19 @@ public class MainController {
         try {
             payment = Float.parseFloat(paymentAmount.getText());
         } catch (NumberFormatException e) {
-//            e.printStackTrace();
         }
         if (payment <= 0) {
             outputTextArea.appendText("Invalid amount.\n");
-//            System.out.println("Invalid amount.");
             return;
         }
         Student student = roster.retrieveStudent(new Student(name, major));
         if (student == null) {
             outputTextArea.appendText("Student not in the roster.\n");
-//            System.out.println("Student not in the roster.");
             return;
         }
         float amountDue = student.getAmountDue();
         if (payment > amountDue) {
             outputTextArea.appendText("Amount is greater than amount due.\n");
-//            System.out.println("Amount is greater than amount due.");
             return;
         }
         try {
@@ -379,6 +427,12 @@ public class MainController {
         }
     }
 
+    /**
+     * Sets the financial aid for a Resident student given a financial aid
+     * amount.
+     *
+     * @param event
+     */
     @FXML
     void onSetButtonClick(ActionEvent event) {
         if (studentName.getText() == null ||
@@ -398,47 +452,49 @@ public class MainController {
         try {
             aidAmount = Float.parseFloat(financialAidAmount.getText());
         } catch (NumberFormatException e) {
-//            e.printStackTrace();
         }
 
         Student student = roster.retrieveStudent(new Student(name, major));
         if (student == null) {
             outputTextArea.appendText("Student not in the roster.\n");
-//            System.out.println("Student not in the roster.");
             return;
         } else if (student.getCredits() < 12) {
             outputTextArea.appendText("Parttime student doesn't qualify for " +
                     "the award\n");
-//            System.out.println("Parttime student doesn't qualify for the " +
-//                    "award.");
             return;
         } else if (!(student instanceof Resident)) {
             outputTextArea.appendText("Not a resident student.\n");
-//            System.out.println("Not a resident student.");
             return;
         }
         Resident resident = (Resident) student;
         if (resident.getFinancialAid() != 0) {
             outputTextArea.appendText("Awarded once already.\n");
-//            System.out.println("Awarded once already.");
             return;
         }
         if (aidAmount > MIN_FINANCIAL_AID && aidAmount < MAX_FINANCIAL_AID) {
             resident.setFinancialAid(aidAmount);
             outputTextArea.appendText("Tuition updated.\n");
-//            System.out.println("Tuition updated.");
         } else {
             outputTextArea.appendText("Invalid amount.\n");
-//            System.out.println("Invalid amount.");
         }
     }
 
+    /**
+     * Calculates the tuition for every student in the roster.
+     *
+     * @param event
+     */
     @FXML
     void onEntireRosterButtonClick(ActionEvent event) {
         roster.calculateAllTuition();
         outputTextArea.appendText("Calculation completed.\n");
     }
 
+    /**
+     * Calculates the tuition for a single student given the name and major.
+     *
+     * @param event
+     */
     @FXML
     void onSingleStudentButtonClick(ActionEvent event) {
         try {
@@ -450,21 +506,36 @@ public class MainController {
             student.tuitionDue();
             outputTextArea.appendText("Calculation completed.\n");
         } catch (NullPointerException e) {
-//            e.printStackTrace();
         }
     }
 
+    /**
+     * Prints all the students in the roster in the current order.
+     *
+     * @param event
+     */
     @FXML
     void onCurrentOrderButtonClick(ActionEvent event) {
         outputTextArea.appendText(roster.toString() + "\n");
     }
 
+    /**
+     * Prints all the students in the roster sorted in alphabetical order
+     * by name.
+     *
+     * @param event
+     */
     @FXML
     void onByNameButtonClick(ActionEvent event) {
         outputTextArea.appendText(roster.toStringByName() + "\n");
 
     }
 
+    /**
+     * Prints the students who have made a payment by ascending payment date.
+     *
+     * @param event
+     */
     @FXML
     void onByPaymentDateButtonClick(ActionEvent event) {
         outputTextArea.appendText(roster.toStringByPayment() + "\n");
@@ -503,6 +574,12 @@ public class MainController {
         };
     }
 
+    /**
+     * Checks the residency status of a student based on radio button
+     * selection.
+     *
+     * @return residency status as a String
+     */
     private String getStudentResidencyStatus() {
         RadioButton selectedResidencyRadioButton =
                 (RadioButton) residencyStatusSelectionGroup.getSelectedToggle();
