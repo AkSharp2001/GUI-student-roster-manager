@@ -17,6 +17,7 @@ public class Date implements Comparable<Date> {
     private static final int NUM_DAYS_FEBRUARY_NON_LEAP_YEAR = 28;
     private static final int DAYS_IN_LITTLE_MONTH = 30;
     private static final int DAYS_IN_LARGE_MONTH = 31;
+    private static final int MIN_DAYS_IN_MONTH = 1;
     private static final int JANUARY = 1;
     private static final int FEBRUARY = 2;
     private static final int MARCH = 3;
@@ -71,7 +72,7 @@ public class Date implements Comparable<Date> {
         if (this.compareTo(new Date()) >= 0) {
             return false;
         }
-        if (this.month < JANUARY || this.day < 1) {
+        if (this.month < JANUARY || this.day < MIN_DAYS_IN_MONTH) {
             return false;
         }
         if (this.month == JANUARY || this.month == MARCH || this.month == MAY ||
