@@ -349,6 +349,7 @@ public class MainController {
         if (nameTextField.getText() == null ||
                 nameTextField.getText().trim().isEmpty() ||
                 majorSelectionGroup.getSelectedToggle() == null) {
+            outputTextArea.appendText("Missing data in form.\n");
             return;
         }
         String name = nameTextField.getText();
@@ -372,16 +373,29 @@ public class MainController {
      */
     @FXML
     void onCalculateTuitionButtonClick(ActionEvent event) {
+        residentRadioButton.setSelected(false);
+        nonResidentRadioButton.setSelected(false);
+        tristateRadioButton.setSelected(false);
+        connecticutRadioButton.setSelected(false);
+        newYorkRadioButton.setSelected(false);
+        internationalRadioButton.setSelected(false);
+        studyAbroadCheckbox.setSelected(false);
+        creditHoursTextfield.setText(null);
         try {
             String name = nameTextField.getText();
             RadioButton selectedMajorRadioButton =
                     (RadioButton) majorSelectionGroup.getSelectedToggle();
             Major major = checkMajor(selectedMajorRadioButton.getText());
             Student student = roster.retrieveStudent(new Student(name, major));
+            if (student == null) {
+                outputTextArea.appendText("Student is not in the roster.\n");
+                return;
+            }
             student.tuitionDue();
             tuitionDueTextField.setText(String.valueOf(student.getAmountDue()));
             outputTextArea.appendText("Calculation completed.\n");
-        } catch (NullPointerException ignored) {
+        } catch (NullPointerException e) {
+            outputTextArea.appendText("Missing data in form.\n");
         }
     }
 
@@ -414,7 +428,7 @@ public class MainController {
         }
         Student student = roster.retrieveStudent(new Student(name, major));
         if (student == null) {
-            outputTextArea.appendText("Student not in the roster.\n");
+            outputTextArea.appendText("Student is not in the roster.\n");
             return;
         }
         float amountDue = student.getAmountDue();
@@ -464,7 +478,7 @@ public class MainController {
 
         Student student = roster.retrieveStudent(new Student(name, major));
         if (student == null) {
-            outputTextArea.appendText("Student not in the roster.\n");
+            outputTextArea.appendText("Student is not in the roster.\n");
             return;
         } else if (student.getCredits() < 12) {
             outputTextArea.appendText("Parttime student doesn't qualify for " +
