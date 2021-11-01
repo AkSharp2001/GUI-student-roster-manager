@@ -412,8 +412,8 @@ public class MainController {
         try {
             aidAmount = Float.parseFloat(financialAidAmount.getText());
         } catch (NumberFormatException e) {
-            outputTextArea.appendText("Payment amount not in correct " +
-                    "format.\n");
+            outputTextArea.appendText("Financial aid amount not in correct"
+                     + " format.\n");
             return;
         }
         Student student = roster.retrieveStudent(new Student(name, major));
