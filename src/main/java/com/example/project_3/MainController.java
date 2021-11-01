@@ -559,7 +559,7 @@ public class MainController {
                 (RadioButton) majorSelectionTuition.getSelectedToggle();
         Major major = checkMajor(selectedMajorRadioButton.getText());
         Student student = roster.retrieveStudent(new Student(name, major));
-        if (student == null) {
+        if (!(student instanceof International)) {
             outputTextArea.appendText("Couldn't find the international " +
                     "student.\n");
         } else {
@@ -581,7 +581,7 @@ public class MainController {
                 (RadioButton) majorSelectionTuition.getSelectedToggle();
         Major major = checkMajor(selectedMajorRadioButton.getText());
         Student student = roster.retrieveStudent(new Student(name, major));
-        if (student == null) {
+        if (!(student instanceof International)) {
             outputTextArea.appendText("Couldn't find the international " +
                     "student.\n");
         } else {
