@@ -345,7 +345,8 @@ public class MainController {
     void onPayButtonClick(ActionEvent event) {
         if (studentName.getText() == null ||
                 studentName.getText().trim().isEmpty() ||
-                majorSelection.getSelectedToggle() == null) {
+                majorSelection.getSelectedToggle() == null ||
+                paymentDate.getValue() == null) {
             outputTextArea.appendText("Missing data in form.\n");
             return;
         }
