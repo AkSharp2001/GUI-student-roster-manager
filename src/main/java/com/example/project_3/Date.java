@@ -15,6 +15,20 @@ import java.util.StringTokenizer;
 public class Date implements Comparable<Date> {
     private static final int CURRENT_YEAR = 2021;
     private static final int NUM_DAYS_FEBRUARY_NON_LEAP_YEAR = 28;
+    private static final int DAYS_IN_LITTLE_MONTH = 30;
+    private static final int DAYS_IN_LARGE_MONTH = 31;
+    private static final int JANUARY = 1;
+    private static final int FEBRUARY = 2;
+    private static final int MARCH = 3;
+    private static final int APRIL = 4;
+    private static final int MAY = 5;
+    private static final int JUNE = 6;
+    private static final int JULY = 7;
+    private static final int AUGUST = 8;
+    private static final int SEPTEMBER = 9;
+    private static final int OCTOBER = 10;
+    private static final int NOVEMBER = 11;
+    private static final int DECEMBER = 12;
     private final int year;
     private final int month;
     private final int day;
@@ -57,17 +71,17 @@ public class Date implements Comparable<Date> {
         if (this.compareTo(new Date()) >= 0) {
             return false;
         }
-        if (this.month < 1 || this.day < 1) {
+        if (this.month < JANUARY || this.day < 1) {
             return false;
         }
-        if (this.month == 1 || this.month == 3 || this.month == 5 ||
-                this.month == 7 || this.month == 8 || this.month == 10 ||
-                this.month == 12) {
-            return this.day <= 31;
-        } else if (this.month == 4 || this.month == 6 || this.month == 9 ||
-                this.month == 11) {
-            return this.day <= 30;
-        } else if (this.month == 2) {
+        if (this.month == JANUARY || this.month == MARCH || this.month == MAY ||
+                this.month == JULY || this.month == AUGUST ||
+                this.month == OCTOBER || this.month == DECEMBER) {
+            return this.day <= DAYS_IN_LARGE_MONTH;
+        } else if (this.month == APRIL || this.month == JUNE ||
+                this.month == SEPTEMBER || this.month == NOVEMBER) {
+            return this.day <= DAYS_IN_LITTLE_MONTH;
+        } else if (this.month == FEBRUARY) {
             return this.day <= NUM_DAYS_FEBRUARY_NON_LEAP_YEAR;
         }
         return false;
