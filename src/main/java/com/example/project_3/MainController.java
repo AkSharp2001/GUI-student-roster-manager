@@ -322,7 +322,11 @@ public class MainController {
                 boolean isStudyAbroad = studyAbroadCheckbox.isSelected();
                 if (credits < MIN_CREDITS_INTERNATIONAL) {
                     outputTextArea.appendText("International students must"
-                            + " enroll" + " at least 12 credits.\n");
+                            + " enroll at least 12 credits.\n");
+                    return;
+                } else if (credits > MIN_CREDITS_INTERNATIONAL && isStudyAbroad) {
+                    outputTextArea.appendText("Study abroad students must " +
+                            "enroll in exactly 12 credit hours.\n");
                     return;
                 }
                 International international = new International(name, major,
@@ -399,7 +403,8 @@ public class MainController {
                 return;
             }
             student.tuitionDue();
-            tuitionDueTextField.setText(String.valueOf(student.getAmountDue()));
+            tuitionDueTextField.setText(String.format("%.2f",
+                    student.getAmountDue()));
             outputTextArea.appendText("Calculation completed.\n");
         } catch (NullPointerException e) {
             outputTextArea.appendText("Missing data in form.\n");
@@ -428,7 +433,9 @@ public class MainController {
         float payment = 0;
         try {
             payment = Float.parseFloat(paymentAmount.getText());
-        } catch (NumberFormatException ignored) {
+        } catch (NumberFormatException e) {
+            outputTextArea.appendText("Invalid amount.\n");
+            return;
         }
         if (payment <= 0) {
             outputTextArea.appendText("Invalid amount.\n");
@@ -444,17 +451,13 @@ public class MainController {
             outputTextArea.appendText("Amount is greater than amount due.\n");
             return;
         }
-        try {
-            Date dateOfPayment = new Date((paymentDate.getValue()).toString());
-            if (!dateOfPayment.isValid()) {
-                outputTextArea.appendText("Payment date invalid.\n");
-                return;
-            }
-            student.payTuition(payment, dateOfPayment);
-            outputTextArea.appendText("Payment applied.\n");
-        } catch (NullPointerException e) {
+        Date dateOfPayment = new Date((paymentDate.getValue()).toString());
+        if (!dateOfPayment.isValid()) {
             outputTextArea.appendText("Payment date invalid.\n");
+            return;
         }
+        student.payTuition(payment, dateOfPayment);
+        outputTextArea.appendText("Payment applied.\n");
     }
 
     /**
@@ -466,13 +469,15 @@ public class MainController {
     @FXML
     void onSetButtonClick(ActionEvent event) {
         if (studentName.getText() == null ||
-                studentName.getText().trim().isEmpty()) {
-            return;
-
-        } else if (majorSelection.getSelectedToggle() == null) {
+                studentName.getText().trim().isEmpty() ||
+                (majorSelection.getSelectedToggle() == null)) {
+            outputTextArea.appendText("Missing data in form.\n");
             return;
         }
-
+        if (financialAidAmount.getText().isEmpty()) {
+            outputTextArea.appendText("Missing the amount.\n");
+            return;
+        }
         String name = studentName.getText();
         RadioButton selectedMajorRadioButton =
                 (RadioButton) majorSelection.getSelectedToggle();
@@ -481,12 +486,14 @@ public class MainController {
         float aidAmount = 0;
         try {
             aidAmount = Float.parseFloat(financialAidAmount.getText());
-        } catch (NumberFormatException ignored) {
+        } catch (NumberFormatException e) {
+            outputTextArea.appendText("Payment amount not in correct " +
+                    "format.\n");
+            return;
         }
-
         Student student = roster.retrieveStudent(new Student(name, major));
         if (student == null) {
-            outputTextArea.appendText("Student is not in the roster.\n");
+            outputTextArea.appendText("Student not in the roster.\n");
             return;
         } else if (student.getCredits() < 12) {
             outputTextArea.appendText("Parttime student doesn't qualify " +
@@ -516,8 +523,12 @@ public class MainController {
      */
     @FXML
     void onEntireRosterButtonClick(ActionEvent event) {
-        roster.calculateAllTuition();
-        outputTextArea.appendText("Calculation completed.\n");
+        if (roster.toString().equals("Student roster is empty!")) {
+            outputTextArea.appendText(roster.toString() + "\n");
+        } else {
+            roster.calculateAllTuition();
+            outputTextArea.appendText("Calculation completed.\n");
+        }
     }
 
     /**
@@ -563,8 +574,13 @@ public class MainController {
             outputTextArea.appendText("Couldn't find the international " +
                     "student.\n");
         } else {
-            ((International) student).setStudyAbroadStatus(true);
-            outputTextArea.appendText("Tuition updated.\n");
+            if (((International) student).isStudyAbroad()) {
+                outputTextArea.appendText("Student is already studying " +
+                        "abroad.\n");
+            } else {
+                ((International) student).setStudyAbroadStatus(true);
+                outputTextArea.appendText("Tuition updated.\n");
+            }
         }
     }
 

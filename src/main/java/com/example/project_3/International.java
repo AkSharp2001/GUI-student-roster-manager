@@ -83,6 +83,15 @@ public class International extends NonResident {
     }
 
     /**
+     * Getter method for this International student's study abroad attribute.
+     *
+     * @return this International student's study abroad status
+     */
+    public boolean isStudyAbroad() {
+        return isStudyAbroad;
+    }
+
+    /**
      * Generates a String representation of this International student object.
      *
      * @return the String representation of this International student object.
