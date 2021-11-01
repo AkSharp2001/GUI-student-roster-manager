@@ -482,6 +482,10 @@ public class MainController {
         }
     }
 
+    /**
+     * Sets student's residency status to "study abroad" given name and major.
+     * @param event an object representing a button being clicked.
+     */
     @FXML
     void onSetToStudyAbroadButtonClick(ActionEvent event) {
         if (studentNameTuition.getText() == null ||
@@ -509,6 +513,10 @@ public class MainController {
         }
     }
 
+    /**
+     * Removes "study abroad" from student's residency given name and major.
+     * @param event an object representing a button being clicked.
+     */
     @FXML
     void onSetToNotStudyAbroadButtonClick(ActionEvent event) {
         if (studentNameTuition.getText() == null ||
