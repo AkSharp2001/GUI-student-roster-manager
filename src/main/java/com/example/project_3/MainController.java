@@ -145,6 +145,12 @@ public class MainController {
     private Button set;
 
     @FXML
+    private Button setToNotStudyAbroad;
+
+    @FXML
+    private Button setToStudyAbroad;
+
+    @FXML
     private MenuItem singleStudent;
 
     @FXML
@@ -411,6 +417,7 @@ public class MainController {
         if (studentName.getText() == null ||
                 studentName.getText().trim().isEmpty() ||
                 majorSelection.getSelectedToggle() == null) {
+            outputTextArea.appendText("Missing data in form.\n");
             return;
         }
         String name = studentName.getText();
@@ -520,15 +527,66 @@ public class MainController {
      */
     @FXML
     void onSingleStudentButtonClick(ActionEvent event) {
+        if (studentNameTuition.getText() == null ||
+                studentNameTuition.getText().trim().isEmpty() ||
+                majorSelectionTuition.getSelectedToggle() == null) {
+            outputTextArea.appendText("Missing data in form.\n");
+            return;
+        }
+        String name = studentNameTuition.getText();
+        RadioButton selectedMajorRadioButton =
+                (RadioButton) majorSelectionTuition.getSelectedToggle();
+        Major major = checkMajor(selectedMajorRadioButton.getText());
         try {
-            String name = studentNameTuition.getText();
-            RadioButton selectedMajorRadioButton =
-                    (RadioButton) majorSelectionTuition.getSelectedToggle();
-            Major major = checkMajor(selectedMajorRadioButton.getText());
             Student student = roster.retrieveStudent(new Student(name, major));
             student.tuitionDue();
             outputTextArea.appendText("Calculation completed.\n");
-        } catch (NullPointerException ignored) {
+        } catch (NullPointerException e) {
+            outputTextArea.appendText("Student is not in the roster.\n");
+        }
+    }
+
+    @FXML
+    void onSetToStudyAbroadButtonClick(ActionEvent event) {
+        if (studentNameTuition.getText() == null ||
+                studentNameTuition.getText().trim().isEmpty() ||
+                majorSelectionTuition.getSelectedToggle() == null) {
+            outputTextArea.appendText("Missing data in form.\n");
+            return;
+        }
+        String name = studentNameTuition.getText();
+        RadioButton selectedMajorRadioButton =
+                (RadioButton) majorSelectionTuition.getSelectedToggle();
+        Major major = checkMajor(selectedMajorRadioButton.getText());
+        Student student = roster.retrieveStudent(new Student(name, major));
+        if (student == null) {
+            outputTextArea.appendText("Couldn't find the international " +
+                    "student.\n");
+        } else {
+            ((International) student).setStudyAbroadStatus(true);
+            outputTextArea.appendText("Tuition updated.\n");
+        }
+    }
+
+    @FXML
+    void onSetToNotStudyAbroadButtonClick(ActionEvent event) {
+        if (studentNameTuition.getText() == null ||
+                studentNameTuition.getText().trim().isEmpty() ||
+                majorSelectionTuition.getSelectedToggle() == null) {
+            outputTextArea.appendText("Missing data in form.\n");
+            return;
+        }
+        String name = studentNameTuition.getText();
+        RadioButton selectedMajorRadioButton =
+                (RadioButton) majorSelectionTuition.getSelectedToggle();
+        Major major = checkMajor(selectedMajorRadioButton.getText());
+        Student student = roster.retrieveStudent(new Student(name, major));
+        if (student == null) {
+            outputTextArea.appendText("Couldn't find the international " +
+                    "student.\n");
+        } else {
+            ((International) student).setStudyAbroadStatus(false);
+            outputTextArea.appendText("Tuition updated.\n");
         }
     }
 

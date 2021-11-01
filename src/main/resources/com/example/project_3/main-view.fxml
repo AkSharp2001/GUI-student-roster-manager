@@ -249,7 +249,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <MenuBar layoutX="31.0" layoutY="24.0" prefWidth="155.0">
+                        <MenuBar layoutX="31.0" layoutY="24.0" prefHeight="25.0" prefWidth="117.0">
                           <menus>
                             <Menu mnemonicParsing="false" text="Tuition">
                               <items>
@@ -262,11 +262,6 @@
                                 <MenuItem fx:id="currentOrder" mnemonicParsing="false" onAction="#onCurrentOrderButtonClick" text="Current Order" />
                                     <MenuItem fx:id="byName" mnemonicParsing="false" onAction="#onByNameButtonClick" text="By Name" />
                                     <MenuItem fx:id="byPaymentDate" mnemonicParsing="false" onAction="#onByPaymentDateButtonClick" text="By Payment Date" />
-                              </items>
-                            </Menu>
-                            <Menu mnemonicParsing="false" text="Help">
-                              <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
                               </items>
                             </Menu>
                           </menus>
@@ -325,6 +320,8 @@
                               </RadioButton>
                            </children>
                         </HBox>
+                        <Button fx:id="setToStudyAbroad" layoutX="110.0" layoutY="191.0" mnemonicParsing="false" onAction="#onSetToStudyAbroadButtonClick" text="Set Student to Study Abroad" />
+                        <Button fx:id="setToNotStudyAbroad" layoutX="110.0" layoutY="232.0" mnemonicParsing="false" onAction="#onSetToNotStudyAbroadButtonClick" text="Set Student to not Study Abroad" />
                      </children></AnchorPane>
               </content>
             </Tab>
