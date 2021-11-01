@@ -526,8 +526,14 @@ public class MainController {
             outputTextArea.appendText("Couldn't find the international " +
                     "student.\n");
         } else {
-            ((International) student).setStudyAbroadStatus(false);
-            outputTextArea.appendText("Tuition updated.\n");
+            if (!((International) student).isStudyAbroad()) {
+                outputTextArea.appendText("Student is already not studying"
+                        + " abroad.\n");
+            } else {
+                ((International) student).setStudyAbroadStatus(false);
+                outputTextArea.appendText("Tuition updated.\n");
+            }
+
         }
     }
 
