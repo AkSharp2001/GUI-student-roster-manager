@@ -253,8 +253,8 @@
                           <menus>
                             <Menu mnemonicParsing="false" text="Tuition">
                               <items>
-                                <MenuItem fx:id="entireRoster" mnemonicParsing="false" onAction="#onEntireRosterButtonClick" text="Entire Roster" />
-                                    <MenuItem fx:id="singleStudent" mnemonicParsing="false" onAction="#onSingleStudentButtonClick" text="Single Student" />
+                                <MenuItem fx:id="entireRoster" mnemonicParsing="false" onAction="#onEntireRosterButtonClick" text="Calculate Entire Roster" />
+                                    <MenuItem fx:id="singleStudent" mnemonicParsing="false" onAction="#onSingleStudentButtonClick" text="Calculate Single Student" />
                               </items>
                             </Menu>
                             <Menu mnemonicParsing="false" text="Print">
