@@ -481,8 +481,8 @@ public class MainController {
             outputTextArea.appendText("Student is not in the roster.\n");
             return;
         } else if (student.getCredits() < 12) {
-            outputTextArea.appendText("Parttime student doesn't qualify for " +
-                    "the award\n");
+            outputTextArea.appendText("Parttime student doesn't qualify " +
+                    "for the award\n");
             return;
         } else if (!(student instanceof Resident)) {
             outputTextArea.appendText("Not a resident student.\n");
@@ -493,7 +493,7 @@ public class MainController {
             outputTextArea.appendText("Awarded once already.\n");
             return;
         }
-        if (aidAmount > MIN_FINANCIAL_AID && aidAmount < MAX_FINANCIAL_AID) {
+        if (aidAmount > MIN_FINANCIAL_AID && aidAmount <= MAX_FINANCIAL_AID) {
             resident.setFinancialAid(aidAmount);
             outputTextArea.appendText("Tuition updated.\n");
         } else {
