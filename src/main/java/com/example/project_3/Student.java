@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
  * The Student class is the superclass for all the different types of
  * students in the roster, and has a template method called tuitionDue()
  * which is expected to be overridden in all subclasses. The Student class
- * also contains getter and setter methods for the Student's tuition, total
+ * also contains getter and setter methods for the Student's total
  * payment amount, tuition amount due, and number of credits attributes. This
  * class also contains getter methods for the Student's profile attribute,
  * in addition to a method for paying tuition. The Student class
@@ -23,7 +23,6 @@ public class Student {
     protected static final float PART_TIME_UNIVERSITY_FEE_MULTIPLIER = 0.8f;
     private final Profile profile;
     private int credits;
-    private float tuition;
     private float totalPayment;
     private Date lastPaymentDate;
     private float amountDue;
@@ -38,7 +37,6 @@ public class Student {
         Profile profile = new Profile(name, major);
         this.profile = profile;
         this.credits = 0;
-        this.tuition = 0;
         this.totalPayment = 0;
         this.lastPaymentDate = null;
         this.amountDue = 0;
@@ -54,7 +52,6 @@ public class Student {
     public Student(String name, Major major, int credits) {
         this.profile = new Profile(name, major);
         this.credits = credits;
-        this.tuition = 0;
         this.totalPayment = 0;
         this.lastPaymentDate = null;
         this.amountDue = 0;
@@ -126,25 +123,6 @@ public class Student {
      */
     public void setCredits(int credits) {
         this.credits = credits;
-    }
-
-    /**
-     * Getter method for this Student's tuition attribute.
-     *
-     * @return this Student's tuition attribute.
-     */
-    public float getTuition() {
-        return this.tuition;
-    }
-
-    /**
-     * Setter method for this Student's tuition attribute.
-     *
-     * @param tuition the tuition amount that this Student's tuition
-     *                attribute will be set to.
-     */
-    public void setTuition(float tuition) {
-        this.tuition = tuition;
     }
 
     /**

@@ -2,10 +2,8 @@ package com.example.project_3;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -25,73 +23,10 @@ public class MainController {
     private Roster roster;
 
     @FXML
-    private RadioButton BAMajor;
-
-    @FXML
-    private RadioButton BAMajorRadioButton;
-
-    @FXML
-    private RadioButton BAMajorTuition;
-
-    @FXML
-    private RadioButton CSMajor;
-
-    @FXML
-    private RadioButton CSMajorRadioButton;
-
-    @FXML
-    private RadioButton CSMajorTuition;
-
-    @FXML
-    private RadioButton EEMajor;
-
-    @FXML
-    private RadioButton EEMajorRadioButton;
-
-    @FXML
-    private RadioButton EEMajorTuition;
-
-    @FXML
-    private RadioButton ITMajor;
-
-    @FXML
-    private RadioButton ITMajorRadioButton;
-
-    @FXML
-    private RadioButton ITMajorTuition;
-
-    @FXML
-    private RadioButton MEMajor;
-
-    @FXML
-    private RadioButton MEMajorRadioButton;
-
-    @FXML
-    private RadioButton MEMajorTuition;
-
-    @FXML
-    private Button addStudentButton;
-
-    @FXML
-    private MenuItem byName;
-
-    @FXML
-    private MenuItem byPaymentDate;
-
-    @FXML
-    private Button calculateTuitionButton;
-
-    @FXML
     private RadioButton connecticutRadioButton;
 
     @FXML
     private TextField creditHoursTextfield;
-
-    @FXML
-    private MenuItem currentOrder;
-
-    @FXML
-    private MenuItem entireRoster;
 
     @FXML
     private TextField financialAidAmount;
@@ -124,34 +59,16 @@ public class MainController {
     private TextArea outputTextArea;
 
     @FXML
-    private Button pay;
-
-    @FXML
     private TextField paymentAmount;
 
     @FXML
     private DatePicker paymentDate;
 
     @FXML
-    private Button removeStudentButton;
-
-    @FXML
     private ToggleGroup residencyStatusSelectionGroup;
 
     @FXML
     private RadioButton residentRadioButton;
-
-    @FXML
-    private Button set;
-
-    @FXML
-    private Button setToNotStudyAbroad;
-
-    @FXML
-    private Button setToStudyAbroad;
-
-    @FXML
-    private MenuItem singleStudent;
 
     @FXML
     private TextField studentName;
@@ -357,6 +274,11 @@ public class MainController {
         internationalRadioButton.setSelected(false);
         studyAbroadCheckbox.setSelected(false);
         creditHoursTextfield.setText(null);
+        tristateRadioButton.setDisable(true);
+        newYorkRadioButton.setDisable(true);
+        connecticutRadioButton.setDisable(true);
+        internationalRadioButton.setDisable(true);
+        studyAbroadCheckbox.setDisable(true);
         if (nameTextField.getText() == null ||
                 nameTextField.getText().trim().isEmpty() ||
                 majorSelectionGroup.getSelectedToggle() == null) {
@@ -430,7 +352,7 @@ public class MainController {
                 (RadioButton) majorSelection.getSelectedToggle();
         Major major = checkMajor(selectedMajorRadioButton.getText());
 
-        float payment = 0;
+        float payment;
         try {
             payment = Float.parseFloat(paymentAmount.getText());
         } catch (NumberFormatException e) {
@@ -483,7 +405,7 @@ public class MainController {
                 (RadioButton) majorSelection.getSelectedToggle();
         Major major = checkMajor(selectedMajorRadioButton.getText());
 
-        float aidAmount = 0;
+        float aidAmount;
         try {
             aidAmount = Float.parseFloat(financialAidAmount.getText());
         } catch (NumberFormatException e) {

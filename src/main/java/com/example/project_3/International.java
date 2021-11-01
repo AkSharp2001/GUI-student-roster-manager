@@ -44,7 +44,7 @@ public class International extends NonResident {
                 this.setCredits(STUDY_ABROAD_MAX_CREDITS);
             }
         }
-        this.setTuition(0);
+        this.setAmountDue(0);
         this.setTotalPayment(0);
         this.setLastPaymentDate(null);
         tuitionDue();
@@ -59,7 +59,7 @@ public class International extends NonResident {
     @Override
     public void tuitionDue() {
         int numCredits = super.getCredits();
-        float amountDue = 0;
+        float amountDue;
         if (isStudyAbroad) {
             amountDue = UNIVERSITY_FEE + ADDITIONAL_FEE;
             super.setAmountDue(amountDue);

@@ -37,7 +37,7 @@ public class Resident extends Student {
     @Override
     public void tuitionDue() {
         int numCredits = super.getCredits();
-        float amountDue = 0;
+        float amountDue;
         if (numCredits >= FULL_TIME_BASE_RATE_MAX_CREDITS) {
             amountDue =
                     FULL_TIME_TUITION_FEE + UNIVERSITY_FEE +
