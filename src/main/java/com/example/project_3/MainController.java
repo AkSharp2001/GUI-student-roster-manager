@@ -247,6 +247,7 @@ public class MainController {
                 majorSelectionGroup.getSelectedToggle() == null ||
                 creditHoursTextfield.getText() == null ||
                 residencyStatusSelectionGroup.getSelectedToggle() == null) {
+            outputTextArea.appendText("Missing data in form.\n");
             return;
         }
         String name = nameTextField.getText();
